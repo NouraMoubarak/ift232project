@@ -262,26 +262,11 @@ public class ShippingInformation extends javax.swing.JFrame {
        String ExpirationDate=txtExpirationDate1.getText()+txtExpirationDate2.getText();     
        String SecurityCode=txtSecurityCode.getText();
        String Information=txtName.getText()+"\n"+cbxCountry.getSelectedItem()+"\n"+txtAddress.getText()+"\n"+PaymentMethod+"\n"+txtSecurityCode.getText()+"\n"+txtExpirationDate1.getText()+"\n"+txtExpirationDate2.getText();
-       // ShippingInformation sh=
-        //    new ShippingInformation(name,country);
-       // txtShippingInformation.setText(sh.getShippingInformation());
-       
-        //txtShippingInformation.setText(name);
-        //txtShippingInformation.setText(country);
-        //txtShippingInformation.setText(address);
-        //txtShippingInformation.setText(PaymentMethod);
-        //txtShippingInformation.setText(ExpirationDate);
-        //txtShippingInformation.setText(SecurityCode);
+
         txtShippingInformation.setText(Information);
        }
-      
     }//GEN-LAST:event_btnSubmitActionPerformed
-// private void changePaymentMethodValues(String country){
-            
-            
-            
-// }
-            
+                
             /**
      * @param args the command line arguments
      */
@@ -342,8 +327,4 @@ public class ShippingInformation extends javax.swing.JFrame {
     private javax.swing.JTextField txtSecurityCode;
     private javax.swing.JTextArea txtShippingInformation;
     // End of variables declaration//GEN-END:variables
-
-    //private String getShippingInformation() {
-    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    //}
 }
