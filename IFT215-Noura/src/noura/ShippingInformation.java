@@ -6,6 +6,7 @@
 
 package noura;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 /**
  *
@@ -130,14 +131,43 @@ public class ShippingInformation extends javax.swing.JFrame {
         rbgPayment.add(rbCard);
         rbCard.setText("Card");
 
+        txtCard.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCardKeyTyped(evt);
+            }
+        });
+
         lblExpirationDate.setText("Expiration date:");
 
+        txtExpirationDate1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtExpirationDate1KeyTyped(evt);
+            }
+        });
+
+        txtExpirationDate2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtExpirationDate2KeyTyped(evt);
+            }
+        });
+
         lblSecurityCode.setText("Security code:");
+
+        txtSecurityCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSecurityCodeKeyTyped(evt);
+            }
+        });
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
+            }
+        });
+        btnSubmit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSubmitKeyPressed(evt);
             }
         });
 
@@ -155,19 +185,19 @@ public class ShippingInformation extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlPaymentMethodLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPaymentMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlPaymentMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSubmit)
                     .addGroup(pnlPaymentMethodLayout.createSequentialGroup()
                         .addComponent(lblExpirationDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtExpirationDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtExpirationDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtExpirationDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtExpirationDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblSecurityCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSecurityCode, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPaymentMethodLayout.setVerticalGroup(
             pnlPaymentMethodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,36 +268,91 @@ public class ShippingInformation extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-       if((txtName.getText().trim().equals(""))||(rbCard.isSelected())){
-           if(txtCard.getText().trim().equals("")){
+        if(txtName.getText().trim().equals("")){
+          JOptionPane.showMessageDialog(this, "Please enter Name","Waring",JOptionPane.INFORMATION_MESSAGE);
+                  }
+        if (rbCard.isSelected()){
+             if(txtCard.getText().trim().equals("")){
                   JOptionPane.showMessageDialog(this, "Please enter Number of card","Waring",JOptionPane.INFORMATION_MESSAGE);
                   if((txtExpirationDate1.getText().trim().equals(""))||(txtExpirationDate2.getText().trim().equals(""))){
                           JOptionPane.showMessageDialog(this, "Please enter the full expiration date","Waring",JOptionPane.INFORMATION_MESSAGE);
-                          }
-           
-          else if(txtName.getText().trim().equals("")){
-          JOptionPane.showMessageDialog(this, "Please enter Name","Waring",JOptionPane.INFORMATION_MESSAGE);
-                  } 
-                  }
-        }else{
+                  }        
+             }
+    }
        String name = txtName.getText().toString();
        String country = cbxCountry.getSelectedItem().toString();
        String address = txtAddress.getText();
        String PaymentMethod;
-            if(rbCash.isSelected()){
+            if(rbCard.isSelected()){
+                PaymentMethod="Card";
+            }else{ 
                 PaymentMethod="Cash";
-            }else{
-                PaymentMethod="Card"+""+txtCard.getText();
             }
-       String ExpirationDate=txtExpirationDate1.getText()+txtExpirationDate2.getText();     
-       String SecurityCode=txtSecurityCode.getText();
-       String Information=txtName.getText()+"\n"+cbxCountry.getSelectedItem()+"\n"+txtAddress.getText()+"\n"+PaymentMethod+"\n"+txtSecurityCode.getText()+"\n"+txtExpirationDate1.getText()+"\n"+txtExpirationDate2.getText();
+            if (country.equals("lebanon")){
+                rbCard.setEnabled(false);
+                if(country.equals("USA")){
+                        rbCash.setEnabled(false);
+                        }
+                else {
+                        rbCard.setEnabled(true);
+                        }
+            }
+      // String ExpirationDate=txtExpirationDate1.getText()+txtExpirationDate2.getText();     
+      // String SecurityCode=txtSecurityCode.getText();
+       String Information=txtName.getText()+"\n"+cbxCountry.getSelectedItem()+"\n"+txtAddress.getText()+"\n"+"("+PaymentMethod+")";
 
         txtShippingInformation.setText(Information);
-       }
+       
     }//GEN-LAST:event_btnSubmitActionPerformed
-                
-            /**
+
+    private void btnSubmitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSubmitKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(txtName.getText().trim().equals("")){
+          JOptionPane.showMessageDialog(this, "Please enter Name","Waring",JOptionPane.INFORMATION_MESSAGE);
+                  }
+        else if(txtName.getText().trim().equals("")||(rbCard.isSelected())){
+             if(txtCard.getText().trim().equals("")){
+                  JOptionPane.showMessageDialog(this, "Please enter Number of card","Waring",JOptionPane.INFORMATION_MESSAGE);
+                  if((txtExpirationDate1.getText().trim().equals(""))||(txtExpirationDate2.getText().trim().equals(""))){
+                          JOptionPane.showMessageDialog(this, "Please enter the full expiration date","Waring",JOptionPane.INFORMATION_MESSAGE);
+                          if(txtSecurityCode.getText().trim().equals("")){
+                            JOptionPane.showMessageDialog(this, "Please enter security code","Waring",JOptionPane.INFORMATION_MESSAGE);  
+                          }
+                          }
+             }
+        }
+        }                           
+       
+    }//GEN-LAST:event_btnSubmitKeyPressed
+
+    private void txtCardKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCardKeyTyped
+       char c = evt.getKeyChar();
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtCardKeyTyped
+
+    private void txtExpirationDate1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtExpirationDate1KeyTyped
+         char c = evt.getKeyChar();
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+           evt.consume();
+    }//GEN-LAST:event_txtExpirationDate1KeyTyped
+    }
+    private void txtExpirationDate2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtExpirationDate2KeyTyped
+        char c = evt.getKeyChar();
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+           evt.consume();
+    }//GEN-LAST:event_txtExpirationDate2KeyTyped
+    }
+    private void txtSecurityCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSecurityCodeKeyTyped
+        char c = evt.getKeyChar();
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+           evt.consume();
+    }//GEN-LAST:event_txtSecurityCodeKeyTyped
+    }           
+      
+     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {

@@ -198,21 +198,21 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="lblExpirationDate" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtExpirationDate1" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="txtExpirationDate1" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtExpirationDate2" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="txtExpirationDate2" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblSecurityCode" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtSecurityCode" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -258,6 +258,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCard">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCardKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblExpirationDate">
           <Properties>
@@ -265,8 +268,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtExpirationDate1">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtExpirationDate1KeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtExpirationDate2">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtExpirationDate2KeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSecurityCode">
           <Properties>
@@ -274,6 +283,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSecurityCode">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSecurityCodeKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSubmit">
           <Properties>
@@ -281,6 +293,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSubmitKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>
