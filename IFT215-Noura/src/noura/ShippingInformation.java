@@ -22,7 +22,7 @@ public class ShippingInformation extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         rootPane.setDefaultButton(btnSubmit);
         this.setTitle("Shipping Information");
-        
+        int i=txtExpirationDate2.getX();
       }
 
      /**
@@ -77,7 +77,21 @@ public class ShippingInformation extends javax.swing.JFrame {
 
         lblCountry.setText("Country:");
 
-        cbxCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lebanon", "France", "USA", " " }));
+        cbxCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select Country", "Lebanon", "France", "USA", " " }));
+        cbxCountry.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cbxCountryPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        cbxCountry.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxCountryItemStateChanged(evt);
+            }
+        });
 
         lblAddress.setText("Address:");
 
@@ -268,90 +282,153 @@ public class ShippingInformation extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        if(txtName.getText().trim().equals("")){
-          JOptionPane.showMessageDialog(this, "Please enter Name","Waring",JOptionPane.INFORMATION_MESSAGE);
-                  }
-        if (rbCard.isSelected()){
-             if(txtCard.getText().trim().equals("")){
-                  JOptionPane.showMessageDialog(this, "Please enter Number of card","Waring",JOptionPane.INFORMATION_MESSAGE);
-                  if((txtExpirationDate1.getText().trim().equals(""))||(txtExpirationDate2.getText().trim().equals(""))){
-                          JOptionPane.showMessageDialog(this, "Please enter the full expiration date","Waring",JOptionPane.INFORMATION_MESSAGE);
-                  }        
-             }
-    }
-       String name = txtName.getText().toString();
+         String name = txtName.getText().toString();
        String country = cbxCountry.getSelectedItem().toString();
        String address = txtAddress.getText();
-       String PaymentMethod;
+       String PaymentMethod = "cash";
             if(rbCard.isSelected()){
                 PaymentMethod="Card";
-            }else{ 
+            }else if(rbCash.isSelected()){
                 PaymentMethod="Cash";
             }
-            if (country.equals("lebanon")){
-                rbCard.setEnabled(false);
-                if(country.equals("USA")){
-                        rbCash.setEnabled(false);
-                        }
-                else {
-                        rbCard.setEnabled(true);
-                        }
-            }
-      // String ExpirationDate=txtExpirationDate1.getText()+txtExpirationDate2.getText();     
-      // String SecurityCode=txtSecurityCode.getText();
+           
        String Information=txtName.getText()+"\n"+cbxCountry.getSelectedItem()+"\n"+txtAddress.getText()+"\n"+"("+PaymentMethod+")";
 
         txtShippingInformation.setText(Information);
-       
-    }//GEN-LAST:event_btnSubmitActionPerformed
-
-    private void btnSubmitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSubmitKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(txtName.getText().trim().equals("")){
+         if(txtName.getText().trim().equals("")){
           JOptionPane.showMessageDialog(this, "Please enter Name","Waring",JOptionPane.INFORMATION_MESSAGE);
+        }
+         if(rbCard.isSelected()){
+             if(txtCard.getText().trim().equals("")){
+                  JOptionPane.showMessageDialog(this, "Please enter Number of card","Warning",JOptionPane.INFORMATION_MESSAGE);
+             }
+                  if((txtExpirationDate1.getText().trim().equals(""))||(txtExpirationDate2.getText().trim().equals(""))){
+                          JOptionPane.showMessageDialog(this, "Please enter the full expiration date","Warning",JOptionPane.INFORMATION_MESSAGE);
                   }
-        else if(txtName.getText().trim().equals("")||(rbCard.isSelected())){
+                          if(txtSecurityCode.getText().trim().equals("")){
+                            JOptionPane.showMessageDialog(this, "Please enter security code","Warning",JOptionPane.INFORMATION_MESSAGE);  
+                          }
+                                            
+                             }
+        
+          int exp2=Integer.parseInt(txtExpirationDate2.getText());
+          int exp1=Integer.parseInt(txtExpirationDate1.getText());
+          if ((exp2<15)||(exp1<1)){
+              JOptionPane.showMessageDialog(null,"card number is expired");
+          }
+          if (exp1>12) {
+              JOptionPane.showMessageDialog(null,"your monthly date is wrong");
+          }   
+          if ((exp2<14)||(exp2>20)){
+              JOptionPane.showMessageDialog(null,"your yearly date is wrong");
+          }    
+          
+       
+        if (rbCard.isSelected()){
              if(txtCard.getText().trim().equals("")){
                   JOptionPane.showMessageDialog(this, "Please enter Number of card","Waring",JOptionPane.INFORMATION_MESSAGE);
+             }
                   if((txtExpirationDate1.getText().trim().equals(""))||(txtExpirationDate2.getText().trim().equals(""))){
                           JOptionPane.showMessageDialog(this, "Please enter the full expiration date","Waring",JOptionPane.INFORMATION_MESSAGE);
+                  }
                           if(txtSecurityCode.getText().trim().equals("")){
-                            JOptionPane.showMessageDialog(this, "Please enter security code","Waring",JOptionPane.INFORMATION_MESSAGE);  
+                              JOptionPane.showMessageDialog(this, "Please enter Security Code","Waring",JOptionPane.INFORMATION_MESSAGE);
                           }
-                          }
-             }
-        }
-        }                           
+                        
+             
+        
+    }
+      
+    }//GEN-LAST:event_btnSubmitActionPerformed
+ private void cbxCountryActionPerformed(java.awt.event.ActionEvent evt) { 
+     String country = cbxCountry.getSelectedItem().toString();
+      if (country.equals("Lebanon")){
+                rbCard.setEnabled(false);
+                          if(country.equals("USA")){
+                        rbCash.setEnabled(false);
+                        }
+                }
+ }
+ 
+    private void btnSubmitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSubmitKeyPressed
+     
+         
+         if (cbxCountry.getSelectedItem().toString().equals("Select Item")){
+             JOptionPane.showMessageDialog(this, "Please select a country","Waring",JOptionPane.INFORMATION_MESSAGE);
+         }
+         if(txtName.getText().trim().equals("")){
+              JOptionPane.showMessageDialog(this, "Please enter Name","Warning",JOptionPane.INFORMATION_MESSAGE);
+         }
+        
+                
+        
+         
+                 
        
     }//GEN-LAST:event_btnSubmitKeyPressed
 
     private void txtCardKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCardKeyTyped
        char c = evt.getKeyChar();
-       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+       if((!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE))||(txtCard.getText().length()>=16)){
            evt.consume();
-       }
+        
     }//GEN-LAST:event_txtCardKeyTyped
-
+    }
     private void txtExpirationDate1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtExpirationDate1KeyTyped
          char c = evt.getKeyChar();
-       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)||(txtExpirationDate1.getText().length()>=2)){
            evt.consume();
+          
     }//GEN-LAST:event_txtExpirationDate1KeyTyped
     }
     private void txtExpirationDate2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtExpirationDate2KeyTyped
         char c = evt.getKeyChar();
-       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)||(txtExpirationDate2.getText().length()>=2)){
            evt.consume();
+       
     }//GEN-LAST:event_txtExpirationDate2KeyTyped
-    }
+       }
     private void txtSecurityCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSecurityCodeKeyTyped
         char c = evt.getKeyChar();
-       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)){
+       if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACK_SPACE)||c==KeyEvent.VK_DELETE)||(txtSecurityCode.getText().length()>=3)){
            evt.consume();
     }//GEN-LAST:event_txtSecurityCodeKeyTyped
-    }           
-      
+        }
+    
+    private void cbxCountryPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbxCountryPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+       String country = cbxCountry.getSelectedItem().toString();
+      if (country.equals("Lebanon")){
+               rbCard.setEnabled(false);
+               if(country.equals("USA")){
+                      rbCash.setEnabled(false);
+               }
+               }
+    }//GEN-LAST:event_cbxCountryPopupMenuWillBecomeInvisible
+
+    private void cbxCountryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxCountryItemStateChanged
+        // TODO add your handling code here:
+        String country = cbxCountry.getSelectedItem().toString();
+      if (country.equals("Lebanon")){
+               rbCard.setEnabled(false);
+               rbCash.setEnabled(true);
+      }
+              if(country.equals("USA")){
+                      rbCash.setEnabled(false);
+                      rbCard.setEnabled(true);
+               }
+              if(country.equals("France")){
+                    rbCash.setEnabled(true);
+                    rbCard.setEnabled(true);
+              }
+              else if(country.equals("Select Country")){
+                  rbCash.setEnabled(false);
+                  rbCard.setEnabled(false);
+                  JOptionPane.showMessageDialog(this, "Please select a country","Warning",JOptionPane.INFORMATION_MESSAGE);
+                  
+              }
+    }//GEN-LAST:event_cbxCountryItemStateChanged
+          
      /**
      * @param args the command line arguments
      */
