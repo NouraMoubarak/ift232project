@@ -142,19 +142,14 @@
         <Component class="javax.swing.JComboBox" name="cbxCountry">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Select Country"/>
-                <StringItem index="1" value="Lebanon"/>
-                <StringItem index="2" value="France"/>
-                <StringItem index="3" value="USA"/>
-                <StringItem index="4" value=" "/>
+              <StringArray count="4">
+                <StringItem index="0" value="Lebanon"/>
+                <StringItem index="1" value="France"/>
+                <StringItem index="2" value="USA"/>
+                <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="popupMenuWillBecomeInvisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="cbxCountryPopupMenuWillBecomeInvisible"/>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxCountryItemStateChanged"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAddress">
           <Properties>
